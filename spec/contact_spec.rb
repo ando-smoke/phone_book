@@ -42,4 +42,10 @@ describe(Contact) do
       expect(test_contact.phone_numbers()).to(eq([test_phone_1, test_phone_2]))
     end
   end
+
+  describe(".all") do
+    it("is empty at first") do
+      expect(Contact.all()).to(eq([]))
+    end
+  end
 end
