@@ -22,6 +22,8 @@ class Contact
     @@all_contacts
   end
 
-
+  define_singleton_method(:clear) do
+    @@all_contacts = []
+  end
 
 end

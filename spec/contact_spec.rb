@@ -3,6 +3,11 @@ require("contact")
 require("phone")
 
 describe(Contact) do
+
+  before() do
+    Contact.clear()
+  end
+
   describe("#first_name") do
     it("returns the first name of a contact") do
       test_phone = Phone.new({ type: "home", number: "503-555-4444" })
@@ -56,6 +61,17 @@ describe(Contact) do
         last_name: "Boggs", phone_numbers: [test_phone] })
       test_contact.save()
       expect(Contact.all()).to(eq([test_contact]))
+    end
+  end
+
+  describe(".clear") do
+    it("clears out all save contacts from the array of saved contacts " \
+      "(i.e. @@all_contacts)") do
+      test_phone = Phone.new({ type: "home", number: "503-555-8888" })
+      test_contact = Contact.new({ first_name: "Billy",
+        last_name: "Barool", phone_numbers: [test_phone] }).save()
+      Contact.clear()
+      expect(Contact.all()).to(eq([]))
     end
   end
 end
