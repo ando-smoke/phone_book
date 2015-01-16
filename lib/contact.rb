@@ -10,12 +10,18 @@ class Contact
     @phone_numbers = contact_data[:phone_numbers]
   end
 
+  define_method(:<=>) do |other_contact|
+    [@last_name.downcase(), @first_name.downcase()] <=>
+      [other_contact.last_name().downcase(),
+        other_contact.first_name().downcase()]
+  end
+
   define_method(:add_phone_number) do |new_phone|
     @phone_numbers.push(new_phone)
   end
 
   define_method(:save) do
-    @@all_contacts.push(self)
+    @@all_contacts.push(self).sort!
   end
 
   define_singleton_method(:all) do

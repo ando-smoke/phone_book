@@ -52,6 +52,21 @@ describe(Contact) do
     it("is empty at first") do
       expect(Contact.all()).to(eq([]))
     end
+
+    it("is always in sorted order by last name, first name ascending") do
+      test_phone = Phone.new({ type: "home", number: "503-555-4444" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone] })
+      test_contact_1.save()
+      test_contact_2 = Contact.new({ first_name: "Sam",
+        last_name: "Snead", phone_numbers: [test_phone] })
+      test_contact_2.save()
+      test_contact_3 = Contact.new({ first_name: "Bob",
+        last_name: "Barker", phone_numbers: [test_phone] })
+      test_contact_3.save()
+      expect(Contact.all()).to(eq([test_contact_3, test_contact_1,
+        test_contact_2]))
+    end
   end
 
   describe("#save") do
@@ -69,9 +84,62 @@ describe(Contact) do
       "(i.e. @@all_contacts)") do
       test_phone = Phone.new({ type: "home", number: "503-555-8888" })
       test_contact = Contact.new({ first_name: "Billy",
-        last_name: "Barool", phone_numbers: [test_phone] }).save()
+        last_name: "Barool", phone_numbers: [test_phone] })
+      test_contact.save()
       Contact.clear()
       expect(Contact.all()).to(eq([]))
+    end
+  end
+
+  describe("#<=>") do
+    it("sorts two contacts by last name then first name") do
+      test_phone_1 = Phone.new({ type: "home", number: "503-555-4444" })
+      test_phone_2 = Phone.new({ type: "work", number: "503-222-7777" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone_1] })
+      test_contact_2 = Contact.new({ first_name: "Sam",
+        last_name: "Snead", phone_numbers: [test_phone_2] })
+      expect(test_contact_1 <=> test_contact_2).to(eq(-1))
+    end
+
+    it("sorts two contacts by last name then first name") do
+      test_phone_1 = Phone.new({ type: "home", number: "503-555-4444" })
+      test_phone_2 = Phone.new({ type: "work", number: "503-222-7777" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone_1] })
+      test_contact_2 = Contact.new({ first_name: "Sam",
+        last_name: "Snead", phone_numbers: [test_phone_2] })
+      expect(test_contact_2 <=> test_contact_1).to(eq(1))
+    end
+
+    it("sorts two contacts by last name then first name") do
+      test_phone_1 = Phone.new({ type: "home", number: "503-555-4444" })
+      test_phone_2 = Phone.new({ type: "work", number: "503-222-7777" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone_1] })
+      test_contact_2 = Contact.new({ first_name: "wade",
+        last_name: "boggs", phone_numbers: [test_phone_2] })
+      expect(test_contact_2 <=> test_contact_1).to(eq(0))
+    end
+
+    it("sorts two contacts by last name then first name") do
+      test_phone_1 = Phone.new({ type: "home", number: "503-555-4444" })
+      test_phone_2 = Phone.new({ type: "work", number: "503-222-7777" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone_1] })
+      test_contact_2 = Contact.new({ first_name: "Xavier",
+        last_name: "Boggs", phone_numbers: [test_phone_2] })
+      expect(test_contact_1 <=> test_contact_2).to(eq(-1))
+    end
+
+    it("sorts two contacts by last name then first name") do
+      test_phone_1 = Phone.new({ type: "home", number: "503-555-4444" })
+      test_phone_2 = Phone.new({ type: "work", number: "503-222-7777" })
+      test_contact_1 = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone_1] })
+      test_contact_2 = Contact.new({ first_name: "Xavier",
+        last_name: "Boggs", phone_numbers: [test_phone_2] })
+      expect(test_contact_2 <=> test_contact_1).to(eq(1))
     end
   end
 end
