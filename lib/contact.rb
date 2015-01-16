@@ -14,8 +14,14 @@ class Contact
     @phone_numbers.push(new_phone)
   end
 
+  define_method(:save) do
+    @@all_contacts.push(self)
+  end
+
   define_singleton_method(:all) do
     @@all_contacts
   end
+
+
 
 end
