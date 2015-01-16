@@ -12,4 +12,14 @@ describe(Contact) do
       expect(test_contact.first_name()).to(eq("Wade"))
     end
   end
+
+  describe("#last_name") do
+    it("returns the last name of a contact") do
+      test_phone = Phone.new({ type: "home",
+        number: "503-555-4444" })
+      test_contact = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: test_phone })
+      expect(test_contact.last_name()).to(eq("Boggs"))
+    end
+  end
 end

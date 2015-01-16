@@ -1,6 +1,6 @@
 class Contact
 
-  attr_reader :first_name
+  attr_reader :first_name, :last_name
 
   define_method(:initialize) do |contact_data|
     @first_name = contact_data[:first_name]
