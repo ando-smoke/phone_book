@@ -8,4 +8,8 @@ class Contact
     @phone_numbers = contact_data[:phone_numbers]
   end
 
+  define_method(:add_phone_number) do |new_phone|
+    @phone_numbers.push(new_phone)
+  end
+
 end
