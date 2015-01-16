@@ -142,4 +142,14 @@ describe(Contact) do
       expect(test_contact_2 <=> test_contact_1).to(eq(1))
     end
   end
+
+  describe("#id") do
+    it("return the id number for a contact") do
+      test_phone = Phone.new({ type: "home", number: "503-555-4444" })
+      test_contact = Contact.new({ first_name: "Wade",
+        last_name: "Boggs", phone_numbers: [test_phone] })
+      test_contact.save()
+      expect(test_contact.id()).to(eq(1))
+    end
+  end
 end

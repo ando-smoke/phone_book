@@ -2,12 +2,13 @@ class Contact
 
   @@all_contacts = []
 
-  attr_reader :first_name, :last_name, :phone_numbers
+  attr_reader :first_name, :last_name, :phone_numbers, :id
 
   define_method(:initialize) do |contact_data|
     @first_name = contact_data[:first_name]
     @last_name = contact_data[:last_name]
     @phone_numbers = contact_data[:phone_numbers]
+    @id = @@all_contacts.length() + 1
   end
 
   define_method(:<=>) do |other_contact|
