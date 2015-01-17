@@ -21,3 +21,8 @@ post("/add_contact") do
   @contacts = Contact.all()
   erb(:index)
 end
+
+post("/clear_all_contacts") do
+  Contact.clear()
+  redirect("/")
+end
