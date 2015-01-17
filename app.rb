@@ -16,7 +16,7 @@ post("/add_contact") do
   phone_number = params.fetch("phone_number")
   phone = Phone.new({ type: phone_type, number: phone_number })
   new_contact = Contact.new({ first_name: first_name,
-    last_name: last_name, phone_number: [phone] })
+    last_name: last_name, phone_numbers: [phone] })
   new_contact.save()
   @contacts = Contact.all()
   erb(:index)
@@ -25,4 +25,9 @@ end
 post("/clear_all_contacts") do
   Contact.clear()
   redirect("/")
+end
+
+get("/contacts/:id") do
+  @contact = Contact.find(params.fetch("id").to_i())
+  erb(:contact)
 end

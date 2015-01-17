@@ -1,0 +1,17 @@
+<h2>Contact Detail</h2>
+  <ul>
+    <li>First name: <em><%= @contact.first_name() %></em></li>
+    <li>Last name: <em><%= @contact.last_name() %></em></li>
+    <li>Phone numbers:
+      <ul>
+        <% @contact.phone_numbers().each() do |phone| %>
+          <li><em><%= phone.type() %>: <%= phone.number() %></em></li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+<br />
+
+<a href="/">
+  <button type="button" class="btn btn-info">Back to Main Page</button>
+</a>
