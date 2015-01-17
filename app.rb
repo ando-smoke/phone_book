@@ -31,3 +31,12 @@ get("/contacts/:id") do
   @contact = Contact.find(params.fetch("id").to_i())
   erb(:contact)
 end
+
+post("/add_phone_number") do
+  phone_type = params.fetch("phone_type")
+  phone_number = params.fetch("phone_number")
+  phone = Phone.new({ type: phone_type, number: phone_number })
+  @contact = Contact.find(params.fetch("contact_id"))
+  @contact.add_phone_number(phone)
+  erb(:contact)
+end
